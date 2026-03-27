@@ -8,6 +8,7 @@ ROOT = Path(__file__).resolve().parent
 COLORS_FILE = ROOT / "colors" / "yaru-dark-ish.lua"
 SVG_FILE = ROOT / "palette.svg"
 README_FILE = ROOT / "README.md"
+SWATCH_DIR = ROOT / "swatches"
 
 ROWS = [
     ("Backgrounds & Surfaces", ["darker", "darkbg", "bg", "surface0", "surface1", "surface2", "gray"]),
@@ -63,10 +64,16 @@ def generate_color_table(colors):
     seen = set()
     unique = [n for n in all_names if n not in seen and not seen.add(n)]
 
+    SWATCH_DIR.mkdir(exist_ok=True)
+    for name in unique:
+        hex_val = colors.get(name, "#000000")
+        svg = f'<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"><rect width="16" height="16" rx="3" fill="{hex_val}"/></svg>\n'
+        (SWATCH_DIR / f"{name}.svg").write_text(svg)
+
     lines = ["| Name | Hex | Preview |", "|------|-----|---------|"]
     for name in unique:
         hex_val = colors.get(name, "#000000")
-        preview = f"![{name}](https://via.placeholder.com/16/{hex_val[1:]}/{hex_val[1:]}.png)"
+        preview = f"![{name}](swatches/{name}.svg)"
         lines.append(f"| `{name}` | `{hex_val}` | {preview} |")
     return "\n".join(lines)
 
