@@ -3,7 +3,7 @@ vim.g.colors_name = "yaru-dark-ish"
 vim.o.termguicolors = true
 
 -- Yaru Dark-ish ANSI palette
-local c = {
+local c = vim.tbl_extend("force", {
   bg         = "#262626",
   black      = "#303030",
   blue       = "#87AFFF",
@@ -31,7 +31,7 @@ local c = {
   surface2   = "#3D3846",
   white      = "#C0BFBC",
   yellow     = "#FFAF87",
-}
+}, vim.g.yaru_color_overrides or {})
 
 local function hi(name, opts)
   vim.api.nvim_set_hl(0, name, opts)
