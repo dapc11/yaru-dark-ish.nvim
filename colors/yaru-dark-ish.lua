@@ -33,6 +33,8 @@ local c = vim.tbl_extend("force", {
   yellow     = "#FFAF87",
 }, vim.g.yaru_color_overrides or {})
 
+c.normal_bg = c.normal_bg or c.bg
+
 local function hi(name, opts)
   vim.api.nvim_set_hl(0, name, opts)
 end
@@ -600,9 +602,9 @@ hi("NeogitUnpushedTo", { fg = c.brcyan, bold = true })
 hi("NeogitUnstagedchanges", { fg = c.magenta, bold = true })
 hi("NeogitUntrackedfiles", { fg = c.magenta, bold = true })
 hi("NonText", { fg = c.gray })
-hi("Normal", { fg = c.fg, bg = c.bg })
+hi("Normal", { fg = c.fg, bg = c.normal_bg })
 hi("NormalFloat", { fg = c.fg, bg = c.darkbg })
-hi("NormalNC", { fg = c.fg, bg = c.bg })
+hi("NormalNC", { fg = c.fg, bg = c.normal_bg })
 hi("NormalSB", { fg = c.fg, bg = c.darker })
 hi("Number", { fg = c.yellow })
 hi("NvimInternalError", { fg = c.red, bg = c.red })
